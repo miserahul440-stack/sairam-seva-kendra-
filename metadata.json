@@ -1,0 +1,7 @@
+{
+  "name": "Sairam Maha-E-Seva Kendra",
+  "description": "A comprehensive digital service portal for farmers, students, and citizens offering CSC services, job alerts, and government schemes.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
