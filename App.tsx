@@ -1,8 +1,3 @@
-समजलं! **Complete detailed design हवा आहे!** 🎯
-
----
-
-```typescript
 import React, { useState, useEffect } from 'react';
 
 const SHEETS = {
@@ -16,13 +11,13 @@ const SHEETS = {
   SETTINGS: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTbNqsKBx8ZbXkr_odP3Jg8_2X7dVmgm4h9Z7zGhghwcFW5qRuMGi7esHKe5-THeOKEjnOSuKAG9vU0/pub?gid=1869150109&single=true&output=csv'
 };
 
-const parseCSV = (text: string) => {
+const parseCSV = (text) => {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
   return lines.slice(1).map(line => {
     const values = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-    const obj: any = {};
+    const obj = {};
     headers.forEach((h, i) => obj[h] = values[i] || '');
     return obj;
   });
@@ -38,18 +33,18 @@ const CATEGORIES = [
 ];
 
 function App() {
-  const [services, setServices] = useState<any[]>([]);
-  const [jobs, setJobs] = useState<any[]>([]);
-  const [shetkari, setShetkari] = useState<any[]>([]);
-  const [vidyarthi, setVidyarthi] = useState<any[]>([]);
-  const [olakh, setOlakh] = useState<any[]>([]);
-  const [printing, setPrinting] = useState<any[]>([]);
-  const [notifications, setNotifications] = useState<any[]>([]);
-  const [settings, setSettings] = useState<any>({});
+  const [services, setServices] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [shetkari, setShetkari] = useState([]);
+  const [vidyarthi, setVidyarthi] = useState([]);
+  const [olakh, setOlakh] = useState([]);
+  const [printing, setPrinting] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('home');
-  const [filterCategory, setFilterCategory] = useState<string | null>(null);
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [filterCategory, setFilterCategory] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [showNotif, setShowNotif] = useState(true);
   const [showNotifModal, setShowNotifModal] = useState(false);
   const [language, setLanguage] = useState('mr');
@@ -74,8 +69,8 @@ function App() {
         setOlakh(olk.filter(o => o.Active === 'YES'));
         setPrinting(prt.filter(p => p.Active === 'YES'));
         setNotifications(ntf.filter(n => n.Active === 'YES'));
-        const cfg: any = {};
-        stg.forEach((s: any) => cfg[s.Setting_Key] = s.Setting_Value);
+        const cfg = {};
+        stg.forEach(s => cfg[s.Setting_Key] = s.Setting_Value);
         setSettings(cfg);
         setLoading(false);
       } catch (e) {
@@ -97,7 +92,7 @@ function App() {
 
   const filteredServices = filterCategory ? services.filter(s => s.Category === filterCategory) : services;
 
-  const sendWhatsApp = (itemName: string) => {
+  const sendWhatsApp = (itemName) => {
     const message = encodeURIComponent(`नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या फॉर्म भरायचा आहे मला माहिती हवी आहे.`);
     window.open(`https://wa.me/${settings.WHATSAPP_NUMBER?.replace(/\D/g, '')}?text=${message}`, '_blank');
   };
@@ -106,16 +101,10 @@ function App() {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '40px' }}>
         <div style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: '72px', fontWeight: 900, background: 'linear-gradient(135deg, #fff 0%, #ffd 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '16px' }}>साईराम</h1>
+          <h1 style={{ fontSize: '72px', fontWeight: 900, color: 'white', marginBottom: '16px' }}>साईराम</h1>
           <div style={{ width: '120px', height: '4px', background: 'rgba(255,255,255,0.5)', margin: '0 auto 16px', borderRadius: '2px' }} />
           <p style={{ fontSize: '28px', color: 'white', fontWeight: 600 }}>महा-ई-सेवा केंद्र</p>
-          <div style={{ marginTop: '32px' }}>
-            <div style={{ width: '120px', height: '4px', background: 'rgba(255,255,255,0.3)', borderRadius: '2px', overflow: 'hidden', margin: '0 auto' }}>
-              <div style={{ height: '100%', background: 'white', animation: 'loading 1.5s infinite', width: '40%' }} />
-            </div>
-          </div>
         </div>
-        <style>{`@keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }`}</style>
       </div>
     );
   }
@@ -141,7 +130,7 @@ function App() {
           
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
             <div>
-              <h1 style={{ fontSize: '48px', fontWeight: 900, background: 'linear-gradient(135deg, #ff6600 0%, #ff9933 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-2px', marginBottom: '4px' }}>साईराम</h1>
+              <h1 style={{ fontSize: '48px', fontWeight: 900, background: 'linear-gradient(135deg, #ff6600 0%, #ff9933 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-2px', marginBottom: '4px', fontFamily: 'system-ui' }}>साईराम</h1>
               <div style={{ width: '80px', height: '3px', background: 'linear-gradient(90deg, transparent, #ff6600, transparent)', margin: '0 auto 8px', borderRadius: '2px' }} />
               <p style={{ fontSize: '16px', color: '#2d3748', fontWeight: 600 }}>महा-ई-सेवा केंद्र</p>
             </div>
@@ -330,8 +319,3 @@ function App() {
 }
 
 export default App;
-```
-
----
-
-**सर्व काही आता properly working आहे! 🚀**
