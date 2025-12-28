@@ -61,7 +61,8 @@ const TRANSLATIONS = {
     qualification: 'शैक्षणिक पात्रता', age: 'वय मर्यादा', documents: 'आवश्यक कागदपत्रे',
     benefit: 'लाभ', eligibility: 'पात्रता', department: 'विभाग',
     director: 'संचालक', callNow: 'कॉल करा', whatsappMsg: 'WhatsApp संदेश',
-    on: 'चालू', off: 'बंद'
+    on: 'चालू', off: 'बंद', ourServices: 'आमची सेवा', yourTrust: 'तुमचा विश्वास',
+    allGovtServices: 'सर्व शासकीय सेवा एकाच ठिकाणी!', exploreServices: 'सेवा पहा'
   },
   en: {
     home: 'Home', updates: 'Updates', contact: 'Contact', back: 'Back', applyNow: 'I Want to Apply',
@@ -72,7 +73,8 @@ const TRANSLATIONS = {
     qualification: 'Educational Qualification', age: 'Age Limit', documents: 'Required Documents',
     benefit: 'Benefit', eligibility: 'Eligibility', department: 'Department',
     director: 'Director', callNow: 'Call Now', whatsappMsg: 'WhatsApp Message',
-    on: 'On', off: 'Off'
+    on: 'On', off: 'Off', ourServices: 'Our Services', yourTrust: 'Your Trust',
+    allGovtServices: 'All Government Services in One Place!', exploreServices: 'Explore Services'
   },
   hi: {
     home: 'होम', updates: 'अपडेट्स', contact: 'संपर्क', back: 'वापस', applyNow: 'मुझे आवेदन करना है',
@@ -83,7 +85,8 @@ const TRANSLATIONS = {
     qualification: 'शैक्षिक योग्यता', age: 'आयु सीमा', documents: 'आवश्यक दस्तावेज',
     benefit: 'लाभ', eligibility: 'पात्रता', department: 'विभाग',
     director: 'निदेशक', callNow: 'कॉल करें', whatsappMsg: 'WhatsApp संदेश',
-    on: 'चालू', off: 'बंद'
+    on: 'चालू', off: 'बंद', ourServices: 'हमारी सेवा', yourTrust: 'आपका विश्वास',
+    allGovtServices: 'सभी सरकारी सेवाएं एक जगह!', exploreServices: 'सेवाएं देखें'
   }
 };
 
@@ -200,13 +203,25 @@ function App() {
   const filteredServices = filterCategory ? getFilteredData() : services;
 
   const sendWhatsApp = (itemName) => {
-    const phone = '919011083440';
-    const message = encodeURIComponent(`नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या फॉर्म भरायचा आहे मला माहिती हवी आहे.`);
-    window.location.href = `https://wa.me/${phone}?text=${message}`;
+    try {
+      const phone = '919011083440';
+      const message = `नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या फॉर्म भरायचा आहे मला माहिती हवी आहे.`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank');
+    } catch (error) {
+      console.error('WhatsApp Error:', error);
+      alert('WhatsApp उघडण्यात समस्या आली. कृपया पुन्हा प्रयत्न करा.');
+    }
   };
 
   const makeCall = () => {
-    window.location.href = 'tel:9011083440';
+    try {
+      window.location.href = 'tel:+919011083440';
+    } catch (error) {
+      console.error('Call Error:', error);
+      alert('कॉल करण्यात समस्या आली. कृपया 9011083440 या नंबरवर डायल करा.');
+    }
   };
 
   const cycleLang = () => {
@@ -259,6 +274,56 @@ function App() {
       <main style={{ padding: '20px' }}>
         {activeTab === 'home' && !filterCategory && (
           <>
+            <section style={{ 
+              background: 'linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%)', 
+              borderRadius: '24px', 
+              padding: '48px 32px', 
+              color: 'white', 
+              marginBottom: '28px', 
+              boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(60px)' }} />
+              <div style={{ position: 'absolute', bottom: '-30px', left: '-30px', width: '150px', height: '150px', background: 'rgba(255,102,0,0.2)', borderRadius: '50%', filter: 'blur(40px)' }} />
+              
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '24px' }}>
+                  <div style={{ flex: 1, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3))' }} />
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '48px', animation: 'bounce 2s infinite' }}>🏛️</span>
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 'bold', background: 'rgba(255,255,255,0.2)', padding: '4px 12px', borderRadius: '20px' }}>{t.ourServices}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 'bold', background: 'rgba(255,102,0,0.3)', padding: '4px 12px', borderRadius: '20px' }}>{t.yourTrust}</span>
+                    </div>
+                  </div>
+                  <div style={{ flex: 1, height: '2px', background: 'linear-gradient(90deg, rgba(255,255,255,0.3), transparent)' }} />
+                </div>
+                
+                <h2 style={{ fontSize: '28px', fontWeight: 'bold', textAlign: 'center', marginBottom: '16px', lineHeight: '1.3', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
+                  {t.allGovtServices}
+                </h2>
+                
+                <p style={{ fontSize: '15px', opacity: 0.9, textAlign: 'center', marginBottom: '28px', lineHeight: '1.6' }}>
+                  शेतकरी योजना • महा-ई-सेवा • स्कॉलरशिप • नोकरी भरती • ओळखपत्र
+                </p>
+                
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <button onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })} style={{ background: 'linear-gradient(135deg, #ff6600, #ff9933)', color: 'white', padding: '14px 32px', borderRadius: '12px', border: 'none', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 8px 20px rgba(255,102,0,0.4)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>{t.exploreServices}</span>
+                    <span style={{ fontSize: '18px' }}>→</span>
+                  </button>
+                </div>
+              </div>
+              
+              <style>{`
+                @keyframes bounce {
+                  0%, 100% { transform: translateY(0); }
+                  50% { transform: translateY(-10px); }
+                }
+              `}</style>
+            </section>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
               {categories.map(cat => (
                 <button key={cat.id} onClick={() => setFilterCategory(cat.id)} style={{ background: 'white', borderRadius: '18px', padding: '24px 16px', border: '1px solid #f1f5f9', cursor: 'pointer', textAlign: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.04)', transition: 'all 0.2s' }}>
@@ -328,18 +393,20 @@ function App() {
               <p style={{ fontSize: '32px', fontWeight: 'bold', color: '#1a202c', marginBottom: '6px' }}>राहुल मिसे</p>
               <p style={{ fontSize: '11px', color: '#ff6600', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '20px' }}>{t.director}</p>
               
-              <div style={{ marginBottom: '12px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <p style={{ fontSize: '20px', fontWeight: 'bold', color: '#1a202c', marginBottom: '4px' }}>📞 9011083440</p>
                 <p style={{ fontSize: '14px', color: '#64748b' }}>📧 sairamcomputer440@gmail.com</p>
               </div>
               
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button onClick={makeCall} style={{ flex: 1, background: '#ff6600', color: 'white', padding: '14px', borderRadius: '12px', border: 'none', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 3px 10px rgba(255,102,0,0.3)' }}>
-                  📞 {t.callNow}
-                </button>
-                <button onClick={() => sendWhatsApp('संपर्क')} style={{ flex: 1, background: '#25d366', color: 'white', padding: '14px', borderRadius: '12px', border: 'none', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer' }}>
-                  💬 {t.whatsappMsg}
-                </button>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <a href="tel:+919011083440" style={{ flex: 1, background: '#ff6600', color: 'white', padding: '16px', borderRadius: '12px', textDecoration: 'none', fontSize: '15px', fontWeight: 'bold', boxShadow: '0 3px 10px rgba(255,102,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '20px' }}>📞</span>
+                  <span>{t.callNow}</span>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=919011083440&text=नमस्कार साईराम महा-ई-सेवा केंद्र" target="_blank" rel="noopener noreferrer" style={{ flex: 1, background: '#25d366', color: 'white', padding: '16px', borderRadius: '12px', textDecoration: 'none', fontSize: '15px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '20px' }}>💬</span>
+                  <span>{t.whatsappMsg}</span>
+                </a>
               </div>
             </div>
           </div>
@@ -495,10 +562,10 @@ function App() {
               )}
             </div>
 
-            <button onClick={() => sendWhatsApp(selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name)} style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '13px', border: 'none', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
+            <a href={`https://api.whatsapp.com/send?phone=919011083440&text=${encodeURIComponent('नमस्कार साईराम महा-ई-सेवा केंद्र, मला "' + (selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name) + '" या फॉर्म भरायचा आहे मला माहिती हवी आहे.')}`} target="_blank" rel="noopener noreferrer" style={{ width: '100%', background: '#25d366', color: 'white', padding: '16px', borderRadius: '13px', border: 'none', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', textDecoration: 'none' }}>
               <span style={{ fontSize: '22px' }}>💬</span>
               <span>{t.applyNow}</span>
-            </button>
+            </a>
           </div>
         </div>
       )}
