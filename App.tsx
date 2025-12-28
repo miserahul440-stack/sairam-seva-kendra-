@@ -23,13 +23,22 @@ const parseCSV = (text) => {
   });
 };
 
-const Logo = ({ size = 'md', lang }) => {
-  const scale = size === 'sm' ? 0.5 : size === 'lg' ? 1.2 : 0.8;
-  const taglines = { mr: 'तुमचा विश्वास, आमची सेवा', en: 'Your Trust, Our Service', hi: 'आपका विश्वास, हमारी सेवा' };
+const Logo = ({ size = 'md', lang, showSubtitle = true }) => {
+  const scale = size === 'sm' ? 0.4 : size === 'lg' ? 1.2 : 0.8;
+  const taglines = { 
+    mr: 'तुमचा विश्वास, आमची सेवा', 
+    en: 'Your Trust, Our Service', 
+    hi: 'आपका विश्वास, हमारी सेवा' 
+  };
+  const centers = {
+    mr: 'महा-ई-सेवा केंद्र',
+    en: 'Maha e-Seva Center',
+    hi: 'महा ई-सेवा केंद्र'
+  };
   
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', transform: `scale(${scale})` }}>
-      <svg width="320" height="140" viewBox="0 0 320 140" style={{ filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.5))' }}>
+      <svg width="280" height="100" viewBox="0 0 280 100" style={{ filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.4))' }}>
         <defs>
           <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" style={{ stopColor: '#c084fc' }} />
@@ -38,14 +47,17 @@ const Logo = ({ size = 'md', lang }) => {
             <stop offset="100%" style={{ stopColor: '#fbbf24' }} />
           </linearGradient>
         </defs>
-        <text x="50%" y="70" dominantBaseline="middle" textAnchor="middle" fill="url(#grad)" fontSize="95" style={{ fontWeight: 900, fontFamily: "'Tiro Devanagari Marathi', serif", letterSpacing: '-2px' }}>साईराम</text>
-        <path d="M60 95 Q 160 120, 260 95" stroke="url(#grad)" strokeWidth="6" fill="none" strokeLinecap="round" />
-        <circle cx="255" cy="88" r="6" fill="#fbbf24" />
+        <text x="50%" y="50" dominantBaseline="middle" textAnchor="middle" fill="url(#grad)" fontSize="75" style={{ fontWeight: 900, fontFamily: "'Tiro Devanagari Marathi', serif", letterSpacing: '-2px' }}>साईराम</text>
+        <path d="M60 65 Q 140 85, 220 65" stroke="url(#grad)" strokeWidth="5" fill="none" strokeLinecap="round" />
+        <circle cx="217" cy="60" r="5" fill="#fbbf24" />
       </svg>
-      {size !== 'sm' && (
-        <div style={{ marginTop: '-10px', background: 'rgba(49,46,129,0.3)', backdropFilter: 'blur(20px)', padding: '6px 32px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-          <span style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '4px', color: 'white' }}>{taglines[lang]}</span>
+      {showSubtitle && size !== 'sm' && (
+        <div style={{ marginTop: '-8px', background: 'rgba(49,46,129,0.3)', backdropFilter: 'blur(20px)', padding: '5px 28px', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '3px', color: 'white' }}>{taglines[lang]}</span>
         </div>
+      )}
+      {size === 'sm' && (
+        <p style={{ fontSize: '9px', color: '#64748b', fontWeight: 'bold', margin: '2px 0 0 0', textAlign: 'center' }}>{centers[lang]}</p>
       )}
     </div>
   );
@@ -199,6 +211,23 @@ function App() {
 
   const filtered = getFilteredData();
 
+  const handleCall = () => {
+    try {
+      window.location.href = 'tel:9011083440';
+    } catch (e) {
+      alert('कृपया 9011083440 वर कॉल करा');
+    }
+  };
+
+  const handleWhatsApp = (itemName = '') => {
+    try {
+      const text = itemName ? `नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या बद्दल माहिती हवी आहे.` : 'नमस्कार साईराम महा-ई-सेवा केंद्र';
+      window.location.href = `https://wa.me/919011083440?text=${encodeURIComponent(text)}`;
+    } catch (e) {
+      alert('कृपया WhatsApp वर 9011083440 ला संदेश पाठवा');
+    }
+  };
+
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #1e3a8a, #1e293b)' }}>
@@ -220,20 +249,20 @@ function App() {
         </div>
       )}
 
-      <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)', padding: '16px 20px', borderBottom: '1px solid #f1f5f9' }}>
+      <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)', padding: '14px 18px', borderBottom: '1px solid #f1f5f9' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <button onClick={() => setLang(lang === 'mr' ? 'en' : lang === 'en' ? 'hi' : 'mr')} style={{ width: '42px', height: '42px', background: '#1a202c', color: 'white', borderRadius: '12px', border: 'none', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>
-            <span style={{ fontSize: '16px' }}>🌐</span>
-            <span style={{ fontSize: '8px' }}>{lang.toUpperCase()}</span>
+          <button onClick={() => setLang(lang === 'mr' ? 'en' : lang === 'en' ? 'hi' : 'mr')} style={{ width: '52px', height: '52px', background: '#1a202c', color: 'white', borderRadius: '14px', border: 'none', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+            <span style={{ fontSize: '20px' }}>🌐</span>
+            <span style={{ fontSize: '9px' }}>{lang.toUpperCase()}</span>
           </button>
           
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <Logo size="sm" lang={lang} />
+            <Logo size="sm" lang={lang} showSubtitle={true} />
           </div>
           
-          <button onClick={() => setShowNotifModal(true)} style={{ width: '42px', height: '42px', background: '#ff6600', color: 'white', borderRadius: '12px', border: 'none', fontSize: '20px', cursor: 'pointer', position: 'relative' }}>
+          <button onClick={() => setShowNotifModal(true)} style={{ width: '52px', height: '52px', background: '#ff6600', color: 'white', borderRadius: '14px', border: 'none', fontSize: '24px', cursor: 'pointer', position: 'relative', boxShadow: '0 2px 8px rgba(255,102,0,0.3)' }}>
             🔔
-            {data.notifications.length > 0 && <div style={{ position: 'absolute', top: '6px', right: '6px', width: '9px', height: '9px', background: '#dc2626', borderRadius: '50%', border: '2px solid white' }} />}
+            {data.notifications.length > 0 && <div style={{ position: 'absolute', top: '8px', right: '8px', width: '10px', height: '10px', background: '#dc2626', borderRadius: '50%', border: '2px solid white' }} />}
           </button>
         </div>
       </header>
@@ -295,7 +324,7 @@ function App() {
                   <div style={{ fontSize: '42px', width: '58px', height: '58px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff7ed', borderRadius: '13px', flexShrink: 0 }}>{item.Icon || '📄'}</div>
                   <div style={{ flex: 1 }}>
                     <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: '#1a202c', marginBottom: '3px' }}>
-                      {item.Service_Name || item.Yojana_Name || item.Scheme_Name || item.Job_Name || item.Card_Name || item.Service_Name}
+                      {item.Service_Name || item.Yojana_Name || item.Scheme_Name || item.Job_Name || item.Card_Name}
                     </h3>
                     <p style={{ fontSize: '12px', color: '#64748b' }}>{item.Description || item.Benefit || item.Department || ''}</p>
                   </div>
@@ -334,9 +363,8 @@ function App() {
 
         {activeTab === 'contact' && (
           <div style={{ textAlign: 'center' }}>
-            <div style={{ marginBottom: '26px' }}>
-              <Logo size="lg" lang={lang} />
-              <p style={{ fontSize: '15px', color: '#64748b', marginTop: '8px' }}>{t.center}</p>
+            <div style={{ marginBottom: '24px' }}>
+              <Logo size="lg" lang={lang} showSubtitle={true} />
             </div>
             <div style={{ background: 'white', borderRadius: '21px', padding: '26px', boxShadow: '0 4px 13px rgba(0,0,0,0.08)' }}>
               <p style={{ fontSize: '30px', fontWeight: 'bold', color: '#1a202c', marginBottom: '5px' }}>राहुल मिसे</p>
@@ -348,14 +376,14 @@ function App() {
               </div>
               
               <div style={{ display: 'flex', gap: '10px' }}>
-                <a href="tel:9011083440" style={{ flex: 1, background: '#ff6600', color: 'white', padding: '15px', borderRadius: '11px', textDecoration: 'none', fontSize: '14.5px', fontWeight: 'bold', boxShadow: '0 3px 10px rgba(255,102,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                <button onClick={handleCall} style={{ flex: 1, background: '#ff6600', color: 'white', padding: '15px', borderRadius: '11px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', boxShadow: '0 3px 10px rgba(255,102,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}>
                   <span style={{ fontSize: '19px' }}>📞</span>
                   <span>{t.call}</span>
-                </a>
-                <a href="https://wa.me/919011083440?text=नमस्कार" target="_blank" rel="noopener noreferrer" style={{ flex: 1, background: '#25d366', color: 'white', padding: '15px', borderRadius: '11px', textDecoration: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                </button>
+                <button onClick={() => handleWhatsApp('')} style={{ flex: 1, background: '#25d366', color: 'white', padding: '15px', borderRadius: '11px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}>
                   <span style={{ fontSize: '19px' }}>💬</span>
                   <span>{t.whatsapp}</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -500,10 +528,10 @@ function App() {
               )}
             </div>
 
-            <a href={`https://wa.me/919011083440?text=${encodeURIComponent('नमस्कार साईराम महा-ई-सेवा केंद्र, मला "' + (selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name) + '" या फॉर्म भरायचा आहे मला माहिती हवी आहे.')}`} target="_blank" rel="noopener noreferrer" style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '12px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', textDecoration: 'none' }}>
+            <button onClick={() => handleWhatsApp(selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name)} style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '12px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
               <span style={{ fontSize: '21px' }}>💬</span>
               <span>{t.apply}</span>
-            </a>
+            </button>
           </div>
         </div>
       )}
