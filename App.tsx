@@ -24,7 +24,7 @@ const parseCSV = (text) => {
 };
 
 const Logo = ({ size = 'md', lang, showSubtitle = true }) => {
-  const scale = size === 'sm' ? 0.4 : size === 'lg' ? 1.2 : 0.8;
+  const scale = size === 'sm' ? 0.6 : size === 'lg' ? 1.2 : 0.8;
   const taglines = { 
     mr: 'तुमचा विश्वास, आमची सेवा', 
     en: 'Your Trust, Our Service', 
@@ -57,7 +57,7 @@ const Logo = ({ size = 'md', lang, showSubtitle = true }) => {
         </div>
       )}
       {size === 'sm' && (
-        <p style={{ fontSize: '9px', color: '#64748b', fontWeight: 'bold', margin: '2px 0 0 0', textAlign: 'center' }}>{centers[lang]}</p>
+        <p style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', margin: '4px 0 0 0', textAlign: 'center' }}>{centers[lang]}</p>
       )}
     </div>
   );
@@ -211,21 +211,24 @@ function App() {
 
   const filtered = getFilteredData();
 
-  const handleCall = () => {
-    try {
-      window.location.href = 'tel:9011083440';
-    } catch (e) {
-      alert('कृपया 9011083440 वर कॉल करा');
-    }
+  const handleCall = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const link = document.createElement('a');
+    link.href = 'tel:9011083440';
+    link.click();
   };
 
-  const handleWhatsApp = (itemName = '') => {
-    try {
-      const text = itemName ? `नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या बद्दल माहिती हवी आहे.` : 'नमस्कार साईराम महा-ई-सेवा केंद्र';
-      window.location.href = `https://wa.me/919011083440?text=${encodeURIComponent(text)}`;
-    } catch (e) {
-      alert('कृपया WhatsApp वर 9011083440 ला संदेश पाठवा');
-    }
+  const handleWhatsApp = (e, itemName = '') => {
+    e.preventDefault();
+    e.stopPropagation();
+    const text = itemName ? 
+      `नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या बद्दल माहिती हवी आहे.` : 
+      'नमस्कार साईराम महा-ई-सेवा केंद्र';
+    const link = document.createElement('a');
+    link.href = `https://wa.me/919011083440?text=${encodeURIComponent(text)}`;
+    link.target = '_blank';
+    link.click();
   };
 
   if (loading) {
@@ -249,7 +252,7 @@ function App() {
         </div>
       )}
 
-      <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)', padding: '14px 18px', borderBottom: '1px solid #f1f5f9' }}>
+      <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)', padding: '16px 18px', borderBottom: '1px solid #f1f5f9' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <button onClick={() => setLang(lang === 'mr' ? 'en' : lang === 'en' ? 'hi' : 'mr')} style={{ width: '52px', height: '52px', background: '#1a202c', color: 'white', borderRadius: '14px', border: 'none', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
             <span style={{ fontSize: '20px' }}>🌐</span>
@@ -380,7 +383,7 @@ function App() {
                   <span style={{ fontSize: '19px' }}>📞</span>
                   <span>{t.call}</span>
                 </button>
-                <button onClick={() => handleWhatsApp('')} style={{ flex: 1, background: '#25d366', color: 'white', padding: '15px', borderRadius: '11px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}>
+                <button onClick={(e) => handleWhatsApp(e, '')} style={{ flex: 1, background: '#25d366', color: 'white', padding: '15px', borderRadius: '11px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}>
                   <span style={{ fontSize: '19px' }}>💬</span>
                   <span>{t.whatsapp}</span>
                 </button>
@@ -528,7 +531,7 @@ function App() {
               )}
             </div>
 
-            <button onClick={() => handleWhatsApp(selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name)} style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '12px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
+            <button onClick={(e) => handleWhatsApp(e, selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name)} style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '12px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
               <span style={{ fontSize: '21px' }}>💬</span>
               <span>{t.apply}</span>
             </button>
