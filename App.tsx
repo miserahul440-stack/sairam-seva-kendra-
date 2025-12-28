@@ -211,26 +211,6 @@ function App() {
 
   const filtered = getFilteredData();
 
-  const handleCall = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const link = document.createElement('a');
-    link.href = 'tel:9011083440';
-    link.click();
-  };
-
-  const handleWhatsApp = (e, itemName = '') => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = itemName ? 
-      `नमस्कार साईराम महा-ई-सेवा केंद्र, मला "${itemName}" या बद्दल माहिती हवी आहे.` : 
-      'नमस्कार साईराम महा-ई-सेवा केंद्र';
-    const link = document.createElement('a');
-    link.href = `https://wa.me/919011083440?text=${encodeURIComponent(text)}`;
-    link.target = '_blank';
-    link.click();
-  };
-
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #1e3a8a, #1e293b)' }}>
@@ -379,14 +359,14 @@ function App() {
               </div>
               
               <div style={{ display: 'flex', gap: '10px' }}>
-                <button onClick={handleCall} style={{ flex: 1, background: '#ff6600', color: 'white', padding: '15px', borderRadius: '11px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', boxShadow: '0 3px 10px rgba(255,102,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}>
+                <a href="tel:9011083440" style={{ flex: 1, background: '#ff6600', color: 'white', padding: '15px', borderRadius: '11px', textDecoration: 'none', fontSize: '14.5px', fontWeight: 'bold', boxShadow: '0 3px 10px rgba(255,102,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                   <span style={{ fontSize: '19px' }}>📞</span>
                   <span>{t.call}</span>
-                </button>
-                <button onClick={(e) => handleWhatsApp(e, '')} style={{ flex: 1, background: '#25d366', color: 'white', padding: '15px', borderRadius: '11px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}>
+                </a>
+                <a href="https://wa.me/919011083440?text=नमस्कार%20साईराम%20महा-ई-सेवा%20केंद्र" target="_blank" rel="noopener noreferrer" style={{ flex: 1, background: '#25d366', color: 'white', padding: '15px', borderRadius: '11px', textDecoration: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                   <span style={{ fontSize: '19px' }}>💬</span>
                   <span>{t.whatsapp}</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -531,10 +511,10 @@ function App() {
               )}
             </div>
 
-            <button onClick={(e) => handleWhatsApp(e, selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name)} style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '12px', border: 'none', fontSize: '14.5px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
+            <a href={`https://wa.me/919011083440?text=${encodeURIComponent('नमस्कार साईराम महा-ई-सेवा केंद्र, मला "' + (selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name) + '" या बद्दल माहिती हवी आहे.')}`} target="_blank" rel="noopener noreferrer" style={{ width: '100%', background: '#25d366', color: 'white', padding: '15px', borderRadius: '12px', textDecoration: 'none', fontSize: '14.5px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
               <span style={{ fontSize: '21px' }}>💬</span>
               <span>{t.apply}</span>
-            </button>
+            </a>
           </div>
         </div>
       )}
