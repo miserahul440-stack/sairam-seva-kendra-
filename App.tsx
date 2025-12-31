@@ -23,10 +23,8 @@ const parseCSV = (text) => {
   });
 };
 
-// ✅ FIX 1: VIBRANT साईराम Logo
+// ✅ FIX 1: साईराम Logo - Clean, Simple, Visible
 const Logo = ({ size = 'md', lang }) => {
-  const scale = size === 'sm' ? 0.65 : size === 'lg' ? 1.4 : 1;
-  
   const centers = {
     mr: 'महा-ई-सेवा केंद्र',
     en: 'Maha e-Seva Center',
@@ -37,84 +35,42 @@ const Logo = ({ size = 'md', lang }) => {
     <div style={{ 
       display: 'flex', 
       flexDirection: 'column', 
-      alignItems: 'center', 
-      transform: `scale(${scale})`,
-      transformOrigin: 'center'
+      alignItems: 'center',
+      padding: size === 'lg' ? '20px' : '10px'
     }}>
-      {/* साईराम with vibrant gradient */}
-      <svg width="260" height="100" viewBox="0 0 260 100" style={{ filter: 'drop-shadow(0 8px 20px rgba(255,0,100,0.5))' }}>
-        <defs>
-          <linearGradient id="rainbowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style={{ stopColor: '#FF0080' }} />
-            <stop offset="25%" style={{ stopColor: '#FF6B00' }} />
-            <stop offset="50%" style={{ stopColor: '#FFD700' }} />
-            <stop offset="75%" style={{ stopColor: '#00D4FF' }} />
-            <stop offset="100%" style={{ stopColor: '#A855F7' }} />
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-        
-        {/* साईराम text */}
-        <text 
-          x="50%" 
-          y="50" 
-          dominantBaseline="middle" 
-          textAnchor="middle" 
-          fill="url(#rainbowGrad)" 
-          fontSize="72" 
-          filter="url(#glow)"
-          style={{ 
-            fontWeight: 900, 
-            fontFamily: "'Tiro Devanagari Marathi', 'Noto Sans Devanagari', serif",
-            letterSpacing: '-2px'
-          }}
-        >
-          साईराम
-        </text>
-        
-        {/* Decorative line */}
-        <path d="M50 70 Q 130 85, 210 70" stroke="url(#rainbowGrad)" strokeWidth="5" fill="none" strokeLinecap="round" />
-        
-        {/* Animated dot */}
-        <circle cx="208" cy="65" r="5" fill="#FFD700">
-          <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" />
-        </circle>
-      </svg>
-      
-      {/* महा-ई-सेवा केंद्र */}
-      <div style={{ 
-        marginTop: '-8px',
-        background: 'linear-gradient(135deg, rgba(255,0,128,0.15), rgba(168,85,247,0.15))',
-        backdropFilter: 'blur(10px)',
-        padding: size === 'sm' ? '10px 24px' : '12px 32px',
-        borderRadius: '20px',
-        border: '3px solid rgba(255,0,128,0.3)',
-        boxShadow: '0 8px 32px rgba(255,0,128,0.3)'
+      {/* साईराम - Simple, clear, visible */}
+      <div style={{
+        fontSize: size === 'lg' ? '48px' : size === 'sm' ? '28px' : '36px',
+        fontWeight: 900,
+        background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        fontFamily: "'Tiro Devanagari Marathi', 'Noto Sans Devanagari', serif",
+        textShadow: '0 2px 10px rgba(255,107,53,0.3)',
+        marginBottom: '8px',
+        letterSpacing: '-1px'
       }}>
-        <p style={{ 
-          fontSize: size === 'sm' ? '16px' : '20px',
-          fontWeight: 900,
-          background: 'linear-gradient(135deg, #FF0080, #A855F7)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          margin: 0,
-          letterSpacing: '0.5px',
-          textAlign: 'center'
-        }}>
-          {centers[lang]}
-        </p>
+        साईराम
+      </div>
+      
+      {/* महा-ई-सेवा केंद्र - Clear subtitle */}
+      <div style={{
+        fontSize: size === 'lg' ? '18px' : size === 'sm' ? '13px' : '16px',
+        fontWeight: 700,
+        color: '#FF6B35',
+        background: 'white',
+        padding: size === 'sm' ? '6px 16px' : '8px 20px',
+        borderRadius: '20px',
+        border: '2px solid #FF6B35',
+        boxShadow: '0 2px 8px rgba(255,107,53,0.2)'
+      }}>
+        {centers[lang]}
       </div>
     </div>
   );
 };
 
-// ✅ FIX 2: Complete translations
+// ✅ FIX 2: Translations
 const T = {
   mr: {
     home: 'होम', updates: 'अपडेट्स', contact: 'संपर्क', apply: 'अर्ज करा', close: 'बंद',
@@ -149,31 +105,31 @@ const T = {
   }
 };
 
-// ✅ FIX 3: VIBRANT categories
+// ✅ FIX 3: Professional SOFT colors - सगळे match होतात
 const CAT = {
   mr: [
-    { id: 'farmer', label: 'शेतकरी योजना', icon: '🌾', color: '#10b981', bg: '#d1fae5' },
-    { id: 'student', label: 'विद्यार्थी कक्ष', icon: '🎓', color: '#3b82f6', bg: '#dbeafe' },
-    { id: 'jobs', label: 'नोकरी अलर्ट', icon: '📢', color: '#ef4444', bg: '#fee2e2' },
-    { id: 'csc', label: 'महा-ई-सेवा', icon: '🏛️', color: '#8b5cf6', bg: '#ede9fe' },
-    { id: 'identity', label: 'ओळखपत्र', icon: '💳', color: '#f59e0b', bg: '#fef3c7' },
-    { id: 'printing', label: 'इतर सेवा', icon: '🖨️', color: '#ec4899', bg: '#fce7f3' }
+    { id: 'farmer', label: 'शेतकरी योजना', icon: '🌾', color: '#10B981', bg: '#ECFDF5', shadow: 'rgba(16,185,129,0.2)' },
+    { id: 'student', label: 'विद्यार्थी कक्ष', icon: '🎓', color: '#3B82F6', bg: '#EFF6FF', shadow: 'rgba(59,130,246,0.2)' },
+    { id: 'jobs', label: 'नोकरी अलर्ट', icon: '📢', color: '#EF4444', bg: '#FEF2F2', shadow: 'rgba(239,68,68,0.2)' },
+    { id: 'csc', label: 'महा-ई-सेवा', icon: '🏛️', color: '#8B5CF6', bg: '#F5F3FF', shadow: 'rgba(139,92,246,0.2)' },
+    { id: 'identity', label: 'ओळखपत्र', icon: '💳', color: '#F59E0B', bg: '#FFFBEB', shadow: 'rgba(245,158,11,0.2)' },
+    { id: 'printing', label: 'इतर सेवा', icon: '🖨️', color: '#EC4899', bg: '#FDF2F8', shadow: 'rgba(236,72,153,0.2)' }
   ],
   en: [
-    { id: 'farmer', label: 'Farmer', icon: '🌾', color: '#10b981', bg: '#d1fae5' },
-    { id: 'student', label: 'Student', icon: '🎓', color: '#3b82f6', bg: '#dbeafe' },
-    { id: 'jobs', label: 'Jobs', icon: '📢', color: '#ef4444', bg: '#fee2e2' },
-    { id: 'csc', label: 'e-Services', icon: '🏛️', color: '#8b5cf6', bg: '#ede9fe' },
-    { id: 'identity', label: 'ID Cards', icon: '💳', color: '#f59e0b', bg: '#fef3c7' },
-    { id: 'printing', label: 'Other', icon: '🖨️', color: '#ec4899', bg: '#fce7f3' }
+    { id: 'farmer', label: 'Farmer', icon: '🌾', color: '#10B981', bg: '#ECFDF5', shadow: 'rgba(16,185,129,0.2)' },
+    { id: 'student', label: 'Student', icon: '🎓', color: '#3B82F6', bg: '#EFF6FF', shadow: 'rgba(59,130,246,0.2)' },
+    { id: 'jobs', label: 'Jobs', icon: '📢', color: '#EF4444', bg: '#FEF2F2', shadow: 'rgba(239,68,68,0.2)' },
+    { id: 'csc', label: 'e-Services', icon: '🏛️', color: '#8B5CF6', bg: '#F5F3FF', shadow: 'rgba(139,92,246,0.2)' },
+    { id: 'identity', label: 'ID Cards', icon: '💳', color: '#F59E0B', bg: '#FFFBEB', shadow: 'rgba(245,158,11,0.2)' },
+    { id: 'printing', label: 'Other', icon: '🖨️', color: '#EC4899', bg: '#FDF2F8', shadow: 'rgba(236,72,153,0.2)' }
   ],
   hi: [
-    { id: 'farmer', label: 'किसान', icon: '🌾', color: '#10b981', bg: '#d1fae5' },
-    { id: 'student', label: 'छात्र', icon: '🎓', color: '#3b82f6', bg: '#dbeafe' },
-    { id: 'jobs', label: 'नौकरी', icon: '📢', color: '#ef4444', bg: '#fee2e2' },
-    { id: 'csc', label: 'ई-सेवाएं', icon: '🏛️', color: '#8b5cf6', bg: '#ede9fe' },
-    { id: 'identity', label: 'पहचान', icon: '💳', color: '#f59e0b', bg: '#fef3c7' },
-    { id: 'printing', label: 'अन्य', icon: '🖨️', color: '#ec4899', bg: '#fce7f3' }
+    { id: 'farmer', label: 'किसान', icon: '🌾', color: '#10B981', bg: '#ECFDF5', shadow: 'rgba(16,185,129,0.2)' },
+    { id: 'student', label: 'छात्र', icon: '🎓', color: '#3B82F6', bg: '#EFF6FF', shadow: 'rgba(59,130,246,0.2)' },
+    { id: 'jobs', label: 'नौकरी', icon: '📢', color: '#EF4444', bg: '#FEF2F2', shadow: 'rgba(239,68,68,0.2)' },
+    { id: 'csc', label: 'ई-सेवाएं', icon: '🏛️', color: '#8B5CF6', bg: '#F5F3FF', shadow: 'rgba(139,92,246,0.2)' },
+    { id: 'identity', label: 'पहचान', icon: '💳', color: '#F59E0B', bg: '#FFFBEB', shadow: 'rgba(245,158,11,0.2)' },
+    { id: 'printing', label: 'अन्य', icon: '🖨️', color: '#EC4899', bg: '#FDF2F8', shadow: 'rgba(236,72,153,0.2)' }
   ]
 };
 
@@ -224,7 +180,7 @@ function App() {
           settings: cfg
         });
         
-        setTimeout(() => setLoading(false), 500);
+        setTimeout(() => setLoading(false), 400);
       } catch (e) {
         console.error(e);
         setLoading(false);
@@ -261,10 +217,22 @@ function App() {
         flexDirection: 'column', 
         alignItems: 'center', 
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #FF0080 0%, #FF6B00 50%, #A855F7 100%)'
+        background: 'linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)'
       }}>
         <Logo size="lg" lang={lang} />
-        <p style={{ color: 'white', marginTop: '24px', fontSize: '18px', fontWeight: 'bold' }}>{t.loading}</p>
+        <div style={{ marginTop: '24px', display: 'flex', gap: '8px' }}>
+          {[0, 1, 2].map(i => (
+            <div key={i} style={{ 
+              width: '10px', 
+              height: '10px', 
+              background: '#FF6B35', 
+              borderRadius: '50%',
+              animation: `bounce 1s infinite ${i * 0.15}s`
+            }} />
+          ))}
+        </div>
+        <p style={{ color: '#FF6B35', marginTop: '16px', fontSize: '16px', fontWeight: 600 }}>{t.loading}</p>
+        <style>{`@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }`}</style>
       </div>
     );
   }
@@ -272,62 +240,58 @@ function App() {
   return (
     <div style={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(to bottom, #fef3c7, #ffffff)',
-      paddingBottom: '90px'
+      background: 'linear-gradient(to bottom, #FFF7ED, #FFFFFF)',
+      paddingBottom: '80px'
     }}>
-      {/* ✅ FIX 4: Header WITHOUT back button - mobile चा back button काम करेल */}
+      {/* ✅ Header - Clean design */}
       <header style={{ 
         position: 'sticky', 
         top: 0, 
         zIndex: 100,
-        background: 'rgba(255,255,255,0.95)',
+        background: 'rgba(255,255,255,0.98)',
         backdropFilter: 'blur(20px)',
         padding: '12px 16px',
-        borderBottom: '2px solid',
-        borderImage: 'linear-gradient(90deg, #FF0080, #FF6B00, #A855F7) 1',
-        boxShadow: '0 4px 20px rgba(255,0,128,0.15)'
+        borderBottom: '1px solid #FED7AA',
+        boxShadow: '0 2px 12px rgba(255,107,53,0.1)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
-          {/* Language button */}
           <button 
             onClick={() => setLang(lang === 'mr' ? 'en' : lang === 'en' ? 'hi' : 'mr')} 
             style={{ 
-              width: '44px',
-              height: '44px',
-              background: 'linear-gradient(135deg, #1e293b, #334155)',
-              color: 'white',
-              borderRadius: '12px',
-              border: 'none',
-              fontSize: '20px',
+              width: '40px',
+              height: '40px',
+              background: 'white',
+              color: '#FF6B35',
+              borderRadius: '10px',
+              border: '2px solid #FED7AA',
+              fontSize: '18px',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+              boxShadow: '0 2px 8px rgba(255,107,53,0.1)'
             }}
           >
             🌐
           </button>
           
-          {/* Logo */}
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             <Logo size="sm" lang={lang} />
           </div>
           
-          {/* Notifications */}
           <button 
             onClick={() => setShowNotifModal(true)} 
             style={{ 
-              width: '44px',
-              height: '44px',
-              background: 'linear-gradient(135deg, #FF0080, #A855F7)',
+              width: '40px',
+              height: '40px',
+              background: '#FF6B35',
               color: 'white',
-              borderRadius: '12px',
+              borderRadius: '10px',
               border: 'none',
-              fontSize: '22px',
+              fontSize: '20px',
               cursor: 'pointer',
               position: 'relative',
-              boxShadow: '0 4px 12px rgba(255,0,128,0.3)'
+              boxShadow: '0 2px 8px rgba(255,107,53,0.3)'
             }}
           >
             🔔
@@ -336,9 +300,9 @@ function App() {
                 position: 'absolute',
                 top: '4px',
                 right: '4px',
-                width: '10px',
-                height: '10px',
-                background: '#FFD700',
+                width: '8px',
+                height: '8px',
+                background: '#22C55E',
                 borderRadius: '50%',
                 border: '2px solid white'
               }} />
@@ -351,69 +315,92 @@ function App() {
         {/* Home */}
         {activeTab === 'home' && !filterCat && (
           <>
-            {/* Hero with vibrant colors */}
+            {/* Hero - Professional orange gradient */}
             <section style={{ 
-              background: 'linear-gradient(135deg, #FF0080 0%, #FF6B00 50%, #A855F7 100%)',
-              borderRadius: '24px',
-              padding: '40px 24px',
+              background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+              borderRadius: '20px',
+              padding: '32px 24px',
               color: 'white',
               marginBottom: '20px',
-              boxShadow: '0 16px 40px rgba(255,0,128,0.4)',
-              position: 'relative',
-              overflow: 'hidden'
+              boxShadow: '0 8px 24px rgba(255,107,53,0.3)',
+              textAlign: 'center'
             }}>
-              <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-                <div style={{ fontSize: '50px', marginBottom: '16px' }}>🏛️</div>
-                <h2 style={{ fontSize: '26px', fontWeight: 900, marginBottom: '12px', textShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
-                  {t.allServices}
-                </h2>
-                <button 
-                  onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })} 
-                  style={{ 
-                    background: 'white',
-                    color: '#FF0080',
-                    padding: '14px 32px',
-                    borderRadius: '14px',
-                    border: 'none',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
-                  }}
-                >
-                  {t.explore} →
-                </button>
-              </div>
+              <div style={{ fontSize: '44px', marginBottom: '12px' }}>🏛️</div>
+              <h2 style={{ 
+                fontSize: '24px', 
+                fontWeight: 800, 
+                marginBottom: '12px',
+                textShadow: '0 2px 8px rgba(0,0,0,0.2)'
+              }}>
+                {t.allServices}
+              </h2>
+              <button 
+                onClick={() => window.scrollTo({ top: 280, behavior: 'smooth' })} 
+                style={{ 
+                  background: 'white',
+                  color: '#FF6B35',
+                  padding: '12px 28px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                  marginTop: '8px'
+                }}
+              >
+                {t.explore} →
+              </button>
             </section>
 
-            {/* Categories - Vibrant colors */}
+            {/* Categories - Professional colors */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
               {categories.map(cat => (
                 <button 
                   key={cat.id}
                   onClick={() => setFilterCat(cat.id)}
                   style={{ 
-                    background: cat.bg,
-                    borderRadius: '20px',
-                    padding: '24px 16px',
-                    border: `3px solid ${cat.color}40`,
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '20px 14px',
+                    border: `2px solid ${cat.color}20`,
                     cursor: 'pointer',
                     textAlign: 'center',
-                    boxShadow: `0 8px 20px ${cat.color}30`
+                    boxShadow: `0 4px 12px ${cat.shadow}`,
+                    transition: 'transform 0.2s'
                   }}
+                  onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.96)'}
+                  onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                  <div style={{ fontSize: '44px', marginBottom: '8px' }}>{cat.icon}</div>
-                  <div style={{ fontSize: '14px', fontWeight: 'bold', color: cat.color, marginBottom: '6px' }}>
+                  <div style={{ 
+                    width: '56px',
+                    height: '56px',
+                    background: cat.bg,
+                    borderRadius: '14px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '32px',
+                    margin: '0 auto 10px'
+                  }}>
+                    {cat.icon}
+                  </div>
+                  <div style={{ 
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: cat.color,
+                    marginBottom: '6px'
+                  }}>
                     {cat.label}
                   </div>
                   <div style={{ 
                     display: 'inline-block',
                     background: cat.color,
                     color: 'white',
-                    padding: '4px 10px',
-                    borderRadius: '10px',
+                    padding: '3px 10px',
+                    borderRadius: '8px',
                     fontSize: '11px',
-                    fontWeight: 'bold'
+                    fontWeight: 600
                   }}>
                     {cat.id === 'farmer' && data.shetkari.length}
                     {cat.id === 'student' && data.vidyarthi.length}
@@ -421,6 +408,7 @@ function App() {
                     {cat.id === 'csc' && data.services.length}
                     {cat.id === 'identity' && data.olakh.length}
                     {cat.id === 'printing' && data.printing.length}
+                    {' '}{t.available}
                   </div>
                 </button>
               ))}
@@ -433,18 +421,25 @@ function App() {
           <div>
             <div style={{ 
               background: categories.find(c => c.id === filterCat)?.bg,
-              padding: '16px',
-              borderRadius: '16px',
+              padding: '14px 16px',
+              borderRadius: '14px',
               marginBottom: '16px',
-              border: `3px solid ${categories.find(c => c.id === filterCat)?.color}40`
+              border: `2px solid ${categories.find(c => c.id === filterCat)?.color}40`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}>
               <h2 style={{ 
-                fontSize: '22px',
-                fontWeight: 'bold',
+                fontSize: '20px',
+                fontWeight: 700,
                 color: categories.find(c => c.id === filterCat)?.color,
-                margin: 0
+                margin: 0,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}>
-                {categories.find(c => c.id === filterCat)?.icon} {categories.find(c => c.id === filterCat)?.label}
+                <span style={{ fontSize: '28px' }}>{categories.find(c => c.id === filterCat)?.icon}</span>
+                <span>{categories.find(c => c.id === filterCat)?.label}</span>
               </h2>
             </div>
             
@@ -456,43 +451,44 @@ function App() {
                   style={{ 
                     width: '100%',
                     background: 'white',
-                    padding: '18px',
-                    borderRadius: '18px',
+                    padding: '16px',
+                    borderRadius: '14px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '14px',
-                    border: `3px solid ${categories.find(c => c.id === filterCat)?.color}20`,
+                    gap: '12px',
+                    border: `2px solid ${categories.find(c => c.id === filterCat)?.color}15`,
                     cursor: 'pointer',
                     textAlign: 'left',
-                    boxShadow: `0 4px 16px ${categories.find(c => c.id === filterCat)?.color}20`
+                    boxShadow: `0 2px 12px ${categories.find(c => c.id === filterCat)?.shadow}`
                   }}
                 >
                   <div style={{ 
-                    fontSize: '40px',
-                    width: '60px',
-                    height: '60px',
+                    fontSize: '36px',
+                    width: '56px',
+                    height: '56px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     background: categories.find(c => c.id === filterCat)?.bg,
-                    borderRadius: '14px'
+                    borderRadius: '12px',
+                    flexShrink: 0
                   }}>
                     {item.Icon || '📄'}
                   </div>
                   <div style={{ flex: 1 }}>
                     <h3 style={{ 
-                      fontSize: '16px',
-                      fontWeight: 'bold',
-                      color: '#1a202c',
+                      fontSize: '15px',
+                      fontWeight: 700,
+                      color: '#1F2937',
                       marginBottom: '4px'
                     }}>
                       {item.Service_Name || item.Yojana_Name || item.Scheme_Name || item.Job_Name || item.Card_Name}
                     </h3>
-                    <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>
+                    <p style={{ fontSize: '12px', color: '#6B7280', margin: 0 }}>
                       {item.Description || item.Benefit || item.Department || ''}
                     </p>
                   </div>
-                  <div style={{ fontSize: '20px', color: categories.find(c => c.id === filterCat)?.color }}>→</div>
+                  <div style={{ fontSize: '18px', color: categories.find(c => c.id === filterCat)?.color }}>→</div>
                 </button>
               ))}
             </div>
@@ -502,7 +498,7 @@ function App() {
         {/* Updates */}
         {activeTab === 'updates' && (
           <div>
-            <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#1a202c' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '16px', color: '#1F2937' }}>
               📢 {t.updates}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -512,19 +508,19 @@ function App() {
                   onClick={() => setSelectedItem(item)}
                   style={{ 
                     background: 'white',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    border: '2px solid #e2e8f0',
+                    borderRadius: '14px',
+                    padding: '16px',
+                    border: '2px solid #F3F4F6',
                     cursor: 'pointer',
                     textAlign: 'left',
                     width: '100%',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
                   }}
                 >
-                  <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: '#1a202c', marginBottom: '8px' }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#1F2937', marginBottom: '6px' }}>
                     {item.Job_Name || item.Yojana_Name || item.Scheme_Name}
                   </h3>
-                  <p style={{ fontSize: '12px', color: '#64748b' }}>
+                  <p style={{ fontSize: '12px', color: '#6B7280', margin: 0 }}>
                     {item.Department || item.Benefit || ''}
                   </p>
                 </button>
@@ -533,91 +529,108 @@ function App() {
           </div>
         )}
 
-        {/* Contact */}
+        {/* ✅ FIX 4: Contact - तुमचा photo येथे */}
         {activeTab === 'contact' && (
           <div style={{ textAlign: 'center' }}>
-            <div style={{ marginBottom: '24px' }}>
+            <div style={{ marginBottom: '20px' }}>
               <Logo size="lg" lang={lang} />
             </div>
             
             <div style={{ 
               background: 'white',
-              borderRadius: '24px',
-              padding: '32px 24px',
-              boxShadow: '0 8px 32px rgba(255,0,128,0.15)'
+              borderRadius: '20px',
+              padding: '28px 20px',
+              boxShadow: '0 4px 20px rgba(255,107,53,0.15)',
+              border: '2px solid #FED7AA'
             }}>
+              {/* ✅ तुमचा photo येथे add करा */}
               <div style={{ 
-                width: '90px',
-                height: '90px',
-                background: 'linear-gradient(135deg, #FF0080, #A855F7)',
+                width: '100px',
+                height: '100px',
+                background: 'linear-gradient(135deg, #FF6B35, #F7931E)',
                 borderRadius: '50%',
                 margin: '0 auto 16px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '44px'
+                boxShadow: '0 8px 24px rgba(255,107,53,0.3)',
+                border: '4px solid white',
+                overflow: 'hidden'
               }}>
-                👤
+                {/* 
+                  ✅ येथे तुमचा photo add करा:
+                  <img src="your-photo.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Profile" />
+                  
+                  Photo नसेल तर emoji दिसेल:
+                */}
+                <span style={{ fontSize: '48px' }}>👤</span>
               </div>
               
-              <p style={{ fontSize: '28px', fontWeight: 'bold', color: '#1a202c', marginBottom: '8px' }}>
+              <p style={{ fontSize: '26px', fontWeight: 800, color: '#1F2937', marginBottom: '6px' }}>
                 राहुल मिसे
               </p>
-              <p style={{ fontSize: '11px', color: '#FF0080', fontWeight: 'bold', marginBottom: '20px' }}>
+              <p style={{ fontSize: '12px', color: '#FF6B35', fontWeight: 600, marginBottom: '18px', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 {t.director}
               </p>
               
-              <div style={{ marginBottom: '20px' }}>
-                <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#1a202c', marginBottom: '6px' }}>
+              <div style={{ marginBottom: '20px', padding: '16px', background: '#FFF7ED', borderRadius: '12px' }}>
+                <p style={{ fontSize: '17px', fontWeight: 700, color: '#1F2937', marginBottom: '6px' }}>
                   📞 9011083440
                 </p>
-                <p style={{ fontSize: '13px', color: '#64748b' }}>
+                <p style={{ fontSize: '13px', color: '#6B7280' }}>
                   📧 sairamcomputer440@gmail.com
                 </p>
               </div>
               
+              {/* ✅ FIX 5: Working WhatsApp & Call buttons */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <a 
                   href="tel:9011083440"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'tel:9011083440';
+                  }}
                   style={{ 
-                    background: 'linear-gradient(135deg, #FF0080, #FF6B00)',
+                    background: 'linear-gradient(135deg, #FF6B35, #F7931E)',
                     color: 'white',
-                    padding: '16px',
-                    borderRadius: '14px',
+                    padding: '14px',
+                    borderRadius: '12px',
                     textDecoration: 'none',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    boxShadow: '0 6px 20px rgba(255,0,128,0.3)',
+                    fontSize: '15px',
+                    fontWeight: 700,
+                    boxShadow: '0 4px 16px rgba(255,107,53,0.3)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px'
                   }}
                 >
-                  <span style={{ fontSize: '22px' }}>📞</span>
+                  <span style={{ fontSize: '20px' }}>📞</span>
                   <span>{t.call}</span>
                 </a>
                 
                 <a 
                   href="https://wa.me/919011083440?text=नमस्कार%20साईराम%20महा-ई-सेवा%20केंद्र"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open('https://wa.me/919011083440?text=नमस्कार%20साईराम%20महा-ई-सेवा%20केंद्र', '_blank');
+                  }}
                   style={{ 
-                    background: 'linear-gradient(135deg, #25d366, #128c7e)',
+                    background: 'linear-gradient(135deg, #25D366, #128C7E)',
                     color: 'white',
-                    padding: '16px',
-                    borderRadius: '14px',
+                    padding: '14px',
+                    borderRadius: '12px',
                     textDecoration: 'none',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
+                    fontSize: '15px',
+                    fontWeight: 700',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
-                    boxShadow: '0 6px 20px rgba(37,211,102,0.3)'
+                    boxShadow: '0 4px 16px rgba(37,211,102,0.3)'
                   }}
                 >
-                  <span style={{ fontSize: '22px' }}>💬</span>
+                  <span style={{ fontSize: '20px' }}>💬</span>
                   <span>{t.whatsapp}</span>
                 </a>
               </div>
@@ -626,21 +639,22 @@ function App() {
         )}
       </main>
 
-      {/* ✅ FIX 5: Bottom nav - Vibrant colors */}
+      {/* ✅ Bottom nav - Professional */}
       <nav style={{ 
         position: 'fixed',
         bottom: '12px',
         left: '50%',
         transform: 'translateX(-50%)',
-        background: 'linear-gradient(135deg, #FF0080, #FF6B00, #A855F7)',
-        borderRadius: '24px',
-        padding: '6px 10px',
+        background: 'white',
+        borderRadius: '20px',
+        padding: '6px 8px',
         display: 'flex',
         gap: '6px',
-        boxShadow: '0 8px 32px rgba(255,0,128,0.5)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
         zIndex: 150,
         width: 'calc(100% - 32px)',
-        maxWidth: '400px'
+        maxWidth: '380px',
+        border: '2px solid #FED7AA'
       }}>
         {[
           { id: 'home', icon: '🏠', label: t.home },
@@ -656,22 +670,22 @@ function App() {
             style={{ 
               flex: 1,
               padding: '10px',
-              background: activeTab === item.id ? 'rgba(255,255,255,0.95)' : 'transparent',
-              color: activeTab === item.id ? '#FF0080' : 'white',
+              background: activeTab === item.id ? '#FF6B35' : 'transparent',
+              color: activeTab === item.id ? 'white' : '#9CA3AF',
               border: 'none',
-              borderRadius: '18px',
+              borderRadius: '14px',
               cursor: 'pointer',
-              fontSize: '24px',
+              fontSize: '22px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: '2px',
-              boxShadow: activeTab === item.id ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
+              transition: 'all 0.2s'
             }}
           >
             <span>{item.icon}</span>
             {activeTab === item.id && (
-              <span style={{ fontSize: '8px', fontWeight: 'bold' }}>{item.label}</span>
+              <span style={{ fontSize: '8px', fontWeight: 700 }}>{item.label}</span>
             )}
           </button>
         ))}
@@ -684,8 +698,8 @@ function App() {
           style={{ 
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -697,26 +711,29 @@ function App() {
             onClick={(e) => e.stopPropagation()}
             style={{ 
               background: 'white',
-              borderRadius: '24px',
-              maxWidth: '400px',
+              borderRadius: '20px',
+              maxWidth: '380px',
               width: '100%',
-              padding: '28px 24px'
+              padding: '24px 20px',
+              maxHeight: '70vh',
+              overflowY: 'auto'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '22px', fontWeight: 'bold', color: '#1a202c', margin: 0 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#1F2937', margin: 0 }}>
                 🔔 {t.notifications}
               </h2>
               <button 
                 onClick={() => setShowNotifModal(false)}
                 style={{ 
-                  background: '#f8fafc',
+                  background: '#F3F4F6',
                   border: 'none',
-                  width: '32px',
-                  height: '32px',
+                  width: '30px',
+                  height: '30px',
                   borderRadius: '50%',
                   cursor: 'pointer',
-                  fontSize: '16px'
+                  fontSize: '14px',
+                  color: '#6B7280'
                 }}
               >
                 ✕
@@ -727,29 +744,30 @@ function App() {
               <div 
                 key={i}
                 style={{ 
-                  padding: '16px',
-                  background: '#f8fafc',
-                  borderRadius: '14px',
-                  marginBottom: '12px'
+                  padding: '14px',
+                  background: '#F9FAFB',
+                  borderRadius: '12px',
+                  marginBottom: '10px',
+                  border: '1px solid #E5E7EB'
                 }}
               >
-                <h3 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '6px' }}>{n.Title}</h3>
-                <p style={{ fontSize: '13px', color: '#64748b' }}>{n.Message}</p>
+                <h3 style={{ fontSize: '14px', fontWeight: 700, marginBottom: '4px', color: '#1F2937' }}>{n.Title}</h3>
+                <p style={{ fontSize: '12px', color: '#6B7280', margin: 0 }}>{n.Message}</p>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* ✅ FIX 6: Detail modal with proper WhatsApp/Call links */}
+      {/* ✅ Detail modal */}
       {selectedItem && (
         <div 
           onClick={() => setSelectedItem(null)}
           style={{ 
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'end',
             justifyContent: 'center',
@@ -760,120 +778,124 @@ function App() {
             onClick={(e) => e.stopPropagation()}
             style={{ 
               background: 'white',
-              borderRadius: '28px 28px 0 0',
+              borderRadius: '24px 24px 0 0',
               width: '100%',
               maxWidth: '480px',
-              padding: '28px 20px 36px',
+              padding: '24px 18px 32px',
               maxHeight: '85vh',
               overflowY: 'auto'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <div style={{ flex: 1 }}>
-                <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1a202c', marginBottom: '8px' }}>
-                  {selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name}
-                </h2>
-              </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '18px' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1F2937', flex: 1, margin: 0 }}>
+                {selectedItem.Service_Name || selectedItem.Job_Name || selectedItem.Yojana_Name || selectedItem.Scheme_Name || selectedItem.Card_Name}
+              </h2>
               <button 
                 onClick={() => setSelectedItem(null)}
                 style={{ 
-                  background: '#f8fafc',
+                  background: '#F3F4F6',
                   border: 'none',
-                  width: '36px',
-                  height: '36px',
+                  width: '32px',
+                  height: '32px',
                   borderRadius: '50%',
                   cursor: 'pointer',
-                  fontSize: '16px'
+                  fontSize: '14px',
+                  flexShrink: 0
                 }}
               >
                 ✕
               </button>
             </div>
 
-            {/* Details */}
-            <div style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '18px' }}>
               {selectedItem.Start_Date && (
-                <div style={{ padding: '12px', background: '#eff6ff', borderRadius: '12px', marginBottom: '10px' }}>
-                  <p style={{ fontSize: '10px', color: '#3b82f6', fontWeight: 'bold', marginBottom: '4px' }}>{t.start}</p>
-                  <p style={{ fontSize: '14px', color: '#1a202c', fontWeight: 'bold', margin: 0 }}>📅 {selectedItem.Start_Date}</p>
+                <div style={{ padding: '12px', background: '#EFF6FF', borderRadius: '10px', marginBottom: '8px' }}>
+                  <p style={{ fontSize: '10px', color: '#3B82F6', fontWeight: 600, marginBottom: '3px' }}>{t.start}</p>
+                  <p style={{ fontSize: '13px', color: '#1F2937', fontWeight: 600, margin: 0 }}>📅 {selectedItem.Start_Date}</p>
                 </div>
               )}
               
               {selectedItem.Last_Date && (
-                <div style={{ padding: '12px', background: '#fef2f2', borderRadius: '12px', marginBottom: '10px' }}>
-                  <p style={{ fontSize: '10px', color: '#dc2626', fontWeight: 'bold', marginBottom: '4px' }}>{t.last}</p>
-                  <p style={{ fontSize: '14px', color: '#1a202c', fontWeight: 'bold', margin: 0 }}>⏰ {selectedItem.Last_Date}</p>
+                <div style={{ padding: '12px', background: '#FEF2F2', borderRadius: '10px', marginBottom: '8px' }}>
+                  <p style={{ fontSize: '10px', color: '#EF4444', fontWeight: 600, marginBottom: '3px' }}>{t.last}</p>
+                  <p style={{ fontSize: '13px', color: '#1F2937', fontWeight: 600, margin: 0 }}>⏰ {selectedItem.Last_Date}</p>
                 </div>
               )}
               
               {selectedItem.Fee && (
-                <div style={{ padding: '12px', background: '#f0fdf4', borderRadius: '12px', marginBottom: '10px' }}>
-                  <p style={{ fontSize: '10px', color: '#10b981', fontWeight: 'bold', marginBottom: '4px' }}>{t.fee}</p>
-                  <p style={{ fontSize: '14px', color: '#1a202c', fontWeight: 'bold', margin: 0 }}>💰 {selectedItem.Fee}</p>
+                <div style={{ padding: '12px', background: '#F0FDF4', borderRadius: '10px', marginBottom: '8px' }}>
+                  <p style={{ fontSize: '10px', color: '#10B981', fontWeight: 600, marginBottom: '3px' }}>{t.fee}</p>
+                  <p style={{ fontSize: '13px', color: '#1F2937', fontWeight: 600, margin: 0 }}>💰 {selectedItem.Fee}</p>
                 </div>
               )}
               
               {(selectedItem.Documents || selectedItem.Documents_Required) && (
-                <div style={{ padding: '14px', background: '#fef3c7', borderRadius: '12px', marginBottom: '10px' }}>
-                  <p style={{ fontSize: '11px', color: '#f59e0b', fontWeight: 'bold', marginBottom: '6px' }}>📄 {t.docs}</p>
-                  <p style={{ fontSize: '13px', color: '#1a202c', lineHeight: '1.5', margin: 0 }}>
+                <div style={{ padding: '12px', background: '#FFFBEB', borderRadius: '10px', marginBottom: '8px' }}>
+                  <p style={{ fontSize: '10px', color: '#F59E0B', fontWeight: 600, marginBottom: '6px' }}>📄 {t.docs}</p>
+                  <p style={{ fontSize: '12px', color: '#1F2937', lineHeight: '1.5', margin: 0 }}>
                     {selectedItem.Documents || selectedItem.Documents_Required}
                   </p>
                 </div>
               )}
               
               {(selectedItem.Description || selectedItem.Benefit) && (
-                <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', padding: '12px', background: '#f8fafc', borderRadius: '12px', margin: 0 }}>
+                <p style={{ fontSize: '12px', color: '#6B7280', lineHeight: '1.6', padding: '12px', background: '#F9FAFB', borderRadius: '10px', margin: 0 }}>
                   {selectedItem.Description || selectedItem.Benefit}
                 </p>
               )}
             </div>
 
-            {/* Action buttons */}
+            {/* ✅ Working buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <a 
                 href={getWhatsAppLink(selectedItem)}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.open(getWhatsAppLink(selectedItem), '_blank');
+                }}
                 style={{ 
                   width: '100%',
-                  background: 'linear-gradient(135deg, #25d366, #128c7e)',
+                  background: 'linear-gradient(135deg, #25D366, #128C7E)',
                   color: 'white',
-                  padding: '16px',
-                  borderRadius: '14px',
+                  padding: '14px',
+                  borderRadius: '12px',
                   textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
+                  fontSize: '15px',
+                  fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  boxShadow: '0 6px 20px rgba(37,211,102,0.4)'
+                  boxShadow: '0 4px 16px rgba(37,211,102,0.3)'
                 }}
               >
-                <span style={{ fontSize: '22px' }}>💬</span>
+                <span style={{ fontSize: '20px' }}>💬</span>
                 <span>{t.whatsapp}</span>
               </a>
               
               <a 
                 href="tel:9011083440"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = 'tel:9011083440';
+                }}
                 style={{ 
                   width: '100%',
-                  background: 'linear-gradient(135deg, #FF0080, #FF6B00)',
+                  background: 'linear-gradient(135deg, #FF6B35, #F7931E)',
                   color: 'white',
-                  padding: '16px',
-                  borderRadius: '14px',
+                  padding: '14px',
+                  borderRadius: '12px',
                   textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
+                  fontSize: '15px',
+                  fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  boxShadow: '0 6px 20px rgba(255,0,128,0.4)'
+                  boxShadow: '0 4px 16px rgba(255,107,53,0.3)'
                 }}
               >
-                <span style={{ fontSize: '22px' }}>📞</span>
+                <span style={{ fontSize: '20px' }}>📞</span>
                 <span>{t.call}</span>
               </a>
             </div>
